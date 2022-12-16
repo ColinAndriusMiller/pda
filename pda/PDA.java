@@ -11,8 +11,10 @@ public class PDA
     private Scanner scanner = new Scanner(System.in);
     private int age;
     private int LOWER_BOUND = 14;
+    private int UPPER_BOUND;
     private double dateable;
-
+    private double dateableOld;
+    private boolean shouldContinue = true;
     /**
      * Constructor for objects of class PDA
      */
@@ -26,16 +28,24 @@ public class PDA
      * This is the main event loop for our PDA program
      */
     public void runEventLoop() {
-        while (true) {
+        System.out.println("If you wish to exist the program, input your age as 0");
+        while (shouldContinue == true) {
             System.out.println("How old are you?");
             try {
                 age = scanner.nextInt();
-                if (age < LOWER_BOUND) {
+                if (age == 0) {
+                    shouldContinue = false;
+                }
+                else if (age < LOWER_BOUND) {
                     System.out.println(age+" is too young!!");
                 } else {
-                    dateable = (age/2 + 7);
+                    dateable = age;
+                    dateable = (dateable/2 + 7);
                     dateable = Math.ceil(dateable);
-                    System.out.println(dateable);
+                    dateableOld = age;
+                    dateableOld = ((dateableOld - 7) * 2);
+                    dateableOld = Math.floor(dateableOld);
+                    System.out.println(dateable + " - " + dateableOld);
                 }
             } catch (InputMismatchException error) {
                 System.out.println("Please enter an integer");
